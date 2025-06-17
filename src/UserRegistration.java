@@ -53,7 +53,13 @@ public class UserRegistration {
         return phoneNumber.matches("^\\+\\d{1,3}[ ]?\\d{10}$");
     }
     public static boolean isPasswordValid(String password){
-        return password.length()>=8;
+        if(password.length()<8){
+            return false;
+        }
+        if(password.matches(".*[A-Z].*")){
+            return true;
+        }
+        return false;
     }
 
     public static void main(String[] args) {
@@ -75,7 +81,6 @@ public class UserRegistration {
         System.out.print("Enter valid mobile number with country code: ");
         String mobileNumber = scanner.nextLine();
 
-        System.out.println("Rule 1: Minimum 8 characters");
         System.out.print("Enter password: ");
         String password = scanner.next();
 
@@ -109,7 +114,10 @@ public class UserRegistration {
         if (validPassword) {
             System.out.println("Password is valid ");
         } else {
-            System.out.println("Password is invalid. It must be at least 8 characters long.");
+            System.out.println("Password is invalid.");
+            System.out.println("Rules:");
+            System.out.println("- Minimum 8 characters");
+            System.out.println("- At least 1 uppercase letter");
         }
         scanner.close();
     }
