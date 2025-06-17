@@ -1,68 +1,96 @@
 import java.util.Scanner;
+
 public class UserRegistration {
 
-    //attributes
     private String firstName;
     private String lastName;
     private String email;
 
-    // setter
-    public void setFirstName (String firstName){
-        this.firstName= firstName;
+    // Setters
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
-    public void setLastName(String lastName){
+
+    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-    public void setEmail(String email){
+
+    public void setEmail(String email) {
         this.email = email;
     }
 
-    //getter
-    public String getFirstName(){
+    // Getters
+    public String getFirstName() {
         return firstName;
     }
+
     public String getLastName() {
         return lastName;
     }
-    public String getEmail(){
+
+    public String getEmail() {
         return email;
     }
 
-
-    public static boolean isValidName(String firstName){
-        return firstName.matches("^[A-Z][a-zA-Z]{2,}$");
+    // Validations
+    public static boolean isValidName(String name) {
+        return name.matches("^[A-Z][a-zA-Z]{2,}$");
     }
-    public static boolean isValidEmail(String email){
+
+    public static boolean isValidEmail(String email) {
         return email.matches("^[a-zA-Z0-9]+([._+-][a-zA-Z0-9]+)?@bl\\.co(\\.[a-zA-Z]{2,}){1,2}$");
+    }
+
+    public static boolean isValidMobileNumber(String phoneNumber) {
+        return phoneNumber.matches("^\\+\\d{1,3}[ ]?\\d{10}$");
     }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        UserRegistration userRegistration = new UserRegistration();
+        UserRegistration user = new UserRegistration();
 
         System.out.print("Enter first name: ");
-        String first_name = scanner.next();
+        String firstName = scanner.next();
+
         System.out.print("Enter last name: ");
-        String last_name = scanner.next();
-        System.out.print("Enter Email id: ");
-        String email_id = scanner.next();
+        String lastName = scanner.next();
 
-        if(isValidName(first_name) && isValidName(last_name)){
-            userRegistration.setFirstName(first_name);
-            userRegistration.setLastName(last_name);
-            System.out.println("\nValid first name: "+ userRegistration.getFirstName()+
-                    "\nValid last name: "+ userRegistration.getLastName());
-        }else {
-            System.out.println("First name & Last name should start with a capital letter and be at least 3 characters long.");
+        System.out.print("Enter email id: ");
+        String email = scanner.next();
 
+        scanner.nextLine();
+
+        System.out.print("Enter valid mobile number with country code: ");
+        String mobileNumber = scanner.nextLine();
+
+
+        boolean validName = isValidName(firstName) && isValidName(lastName);
+        boolean validEmail = isValidEmail(email);
+        boolean validMobile = isValidMobileNumber(mobileNumber);
+
+        if (validName) {
+            user.setFirstName(firstName);
+            user.setLastName(lastName);
+            System.out.println("\nValid first name: " + user.getFirstName() +
+                    "\nValid last name: " + user.getLastName());
+        } else {
+            System.out.println("First name & Last name must start with a capital letter and have at least 3 characters.");
         }
-        if(isValidEmail(email_id)){
-            userRegistration.setEmail(email_id);
-            System.out.println("Valid email: "+ userRegistration.getEmail());
-        }else {
+
+        if (validEmail) {
+            user.setEmail(email);
+            System.out.println("Valid email: " + user.getEmail());
+        } else {
             System.out.println("Invalid email format. Example: abc.xyz@bl.co.in");
         }
-    }
 
+        if (validMobile) {
+            System.out.println("Valid mobile number.");
+        } else {
+            System.out.println("Invalid mobile number. Expected format: +91 9876543210");
+        }
+
+        scanner.close();
+    }
 }
