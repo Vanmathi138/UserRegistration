@@ -48,7 +48,6 @@ public class UserRegistration {
         System.out.print("Enter Email id: ");
         String email_id = scanner.next();
 
-
         if(isValidName(first_name) && isValidName(last_name)){
             userRegistration.setFirstName(first_name);
             userRegistration.setLastName(last_name);
