@@ -5,6 +5,7 @@ public class UserRegistration {
     private String firstName;
     private String lastName;
     private String email;
+    private String password;
 
     // Setters
     public void setFirstName(String firstName) {
@@ -17,6 +18,9 @@ public class UserRegistration {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+    public void setPassword(String password){
+        this.password = password;
     }
 
     // Getters
@@ -32,6 +36,10 @@ public class UserRegistration {
         return email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     // Validations
     public static boolean isValidName(String name) {
         return name.matches("^[A-Z][a-zA-Z]{2,}$");
@@ -43,6 +51,9 @@ public class UserRegistration {
 
     public static boolean isValidMobileNumber(String phoneNumber) {
         return phoneNumber.matches("^\\+\\d{1,3}[ ]?\\d{10}$");
+    }
+    public static boolean isPasswordValid(String password){
+        return password.length()>=8;
     }
 
     public static void main(String[] args) {
@@ -64,10 +75,14 @@ public class UserRegistration {
         System.out.print("Enter valid mobile number with country code: ");
         String mobileNumber = scanner.nextLine();
 
+        System.out.println("Rule 1: Minimum 8 characters");
+        System.out.print("Enter password: ");
+        String password = scanner.next();
 
         boolean validName = isValidName(firstName) && isValidName(lastName);
         boolean validEmail = isValidEmail(email);
         boolean validMobile = isValidMobileNumber(mobileNumber);
+        boolean validPassword = isPasswordValid(password);
 
         if (validName) {
             user.setFirstName(firstName);
@@ -91,6 +106,11 @@ public class UserRegistration {
             System.out.println("Invalid mobile number. Expected format: +91 9876543210");
         }
 
+        if (validPassword) {
+            System.out.println("Password is valid ");
+        } else {
+            System.out.println("Password is invalid. It must be at least 8 characters long.");
+        }
         scanner.close();
     }
 }
