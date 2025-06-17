@@ -53,10 +53,7 @@ public class UserRegistration {
         return phoneNumber.matches("^\\+\\d{1,3}[ ]?\\d{10}$");
     }
     public static boolean isPasswordValid(String password){
-        if(password.length()<8){
-            return false;
-        }
-        if(password.matches(".*[A-Z].*")){
+        if(password.matches("^(?=.*[A-Z])(?=.*\\d).{8,}$")){
             return true;
         }
         return false;
@@ -118,6 +115,7 @@ public class UserRegistration {
             System.out.println("Rules:");
             System.out.println("- Minimum 8 characters");
             System.out.println("- At least 1 uppercase letter");
+            System.out.println("- At least 1 number");
         }
         scanner.close();
     }
